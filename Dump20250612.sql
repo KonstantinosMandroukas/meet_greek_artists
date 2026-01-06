@@ -1,0 +1,104 @@
+-- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: meet_greek_artists
+-- ------------------------------------------------------
+-- Server version	9.1.0
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `artist_info`
+--
+
+DROP TABLE IF EXISTS `artist_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `artist_info` (
+  `Name` varchar(255) DEFAULT NULL,
+  `Info` text,
+  `Image_path` varchar(255) DEFAULT NULL,
+  `YouTube_url` varchar(255) DEFAULT NULL,
+  `Spotify_url` varchar(255) DEFAULT NULL,
+  UNIQUE KEY `Name_UNIQUE` (`Name`),
+  UNIQUE KEY `Image_path_UNIQUE` (`Image_path`),
+  UNIQUE KEY `YouTube_url_UNIQUE` (`YouTube_url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artist_info`
+--
+
+LOCK TABLES `artist_info` WRITE;
+/*!40000 ALTER TABLE `artist_info` DISABLE KEYS */;
+INSERT INTO `artist_info` VALUES ('Alkistis Protopsalti',NULL,NULL,'https://www.youtube.com/@Alkistis_Protopsalti','https://open.spotify.com/artist/514w90CKIw9w84Zh3NSNyA'),('Anna Vissi',NULL,NULL,'https://www.youtube.com/channel/UCxupMjsro8yF1nH01WSjLgg','https://open.spotify.com/artist/3qg78GGGWP04yTv0ZQMsXl'),('Antonis Remos',NULL,NULL,'https://www.youtube.com/channel/UCYd3dJRYX0XG6nzvPFNTuSg','https://open.spotify.com/artist/6s26Q38Zqc4hY3xe7jrEBG'),('Atzela Dimitriou',NULL,NULL,'https://www.youtube.com/channel/UC1bijjTbXrLfeKeoEJzVCmA','https://open.spotify.com/artist/7xySz9OyEWxKC6RyDlo256?autoplay=true'),('Vasilis Papakonstantinou',NULL,NULL,'https://www.youtube.com/@Vasilis_Papakonstantinou','https://open.spotify.com/artist/6QO0eQd1MX0UrX582zWYcN'),('Despoina Vandi',NULL,NULL,'https://www.youtube.com/@despinavandiofficial ','https://open.spotify.com/artist/4aJpTCLUTPTeXfn3c9r9F0'),('Dimitra Galani',NULL,NULL,'https://www.youtube.com/@dimitragalani4039','https://open.spotify.com/artist/3nV0kq59WJOJRLNWpFR1m6'),('Dimitris Mitropanos',NULL,NULL,'https://www.youtube.com/channel/UC2WFH_KzuB5Gd7Jgrfq8zow','https://open.spotify.com/artist/3xqrfI4xL7FnBawAoiOTxe'),('Dionisis Sxoinas',NULL,NULL,'https://www.youtube.com/channel/UCjXHViqRN8MfQDWN21movXA','https://open.spotify.com/artist/6FffkdwR4hVKiG143YFJPb?autoplay=true'),('Dionisys Savopoulos',NULL,NULL,'https://www.youtube.com/@dionysis.savvopoulos','https://open.spotify.com/artist/1QZ7r36PUiIEvT05v1kKt1?autoplay=true'),('Eleftheria Arvanitaki',NULL,NULL,'https://www.youtube.com/channel/UCIbWLE6v5CrboShvX8PrOnw','https://open.spotify.com/artist/4wfucl2s2farNOAmxZAVTC'),('Elena Paparizou',NULL,NULL,'https://www.youtube.com/channel/UC-fISqlTEQCDGfaqmze7Z7Q','https://open.spotify.com/artist/3i37rLqZ3Bvk6gdEOOzXKz'),('Eleni Foureira',NULL,NULL,'https://www.youtube.com/channel/UCuxSBNJZLvBvkTgYlr_0Ulw','https://open.spotify.com/artist/39E15l8zeCDYpSZwFNX4G2'),('Elli Kokkinou',NULL,NULL,'https://www.youtube.com/channel/UCUlIDkBWNcmxywkVqtSFDIw','https://open.spotify.com/artist/3dHMnH9LXTSuhfdcWfjnoc'),('Giannis Kotsiras',NULL,NULL,'https://www.youtube.com/@YannisKotsiras','https://open.spotify.com/artist/6waWR57xXsgtWztHX1v8TB'),('Giannis Ploutarxos',NULL,NULL,'https://www.youtube.com/@GiannisPloutarchos','https://open.spotify.com/artist/152y903Cqyk9GVl6amOtuD'),('Giorgos Dalaras',NULL,NULL,'https://www.youtube.com/channel/UCGhuEp28dWW0emPnc0ag1fw','https://open.spotify.com/artist/0eLU3EgFDZOFgd2Dwalfwo'),('Giorgos Mazonakis',NULL,NULL,'https://www.youtube.com/@GiorgosMazonakisOfficial','https://open.spotify.com/artist/1gyBRbQACz4JJX2HRROigK'),('Giorgos Sabanis',NULL,NULL,'https://www.youtube.com/channel/UCy_gdJqlcwkSicMyOyCuf1Q','https://open.spotify.com/artist/6ZGwdAmu91r8mpA6SXodzd'),('Haris Alexiou',NULL,NULL,'https://www.youtube.com/@harisalexiou','https://open.spotify.com/artist/4cgCxnsmy9kDcl3oA2BYRY'),('Imiskoumpria',NULL,NULL,'https://www.youtube.com/channel/UCUdfr3SXb8XGyO_xGTpJahw','https://open.spotify.com/artist/5A4ExW2nMBFRy2JDoYUcUE?autoplay=true'),('Ivi Adamou',NULL,NULL,'https://www.youtube.com/channel/UCiLz1zI_iOZ7U4Qag_TpjNg','https://open.spotify.com/artist/2arQ0lfcNGLrJOHoJksWOw'),('Konstantinos Argiros',NULL,NULL,'https://www.youtube.com/@ArgirosTv','https://open.spotify.com/artist/5YquORfLTx6nWMlBzJstx7'),('Kostis Maravegias',NULL,NULL,'https://www.youtube.com/@maraveyas','https://open.spotify.com/artist/5PBgnkHTjFwVM3eAhmh2EU'),('Lavredis Machairitsas',NULL,NULL,'https://www.youtube.com/channel/UC-FqzNrTku79p-WKcljx1Rw','https://open.spotify.com/artist/5z7uDSNrMNmtg7eikmaaau'),('Lefteris Pantazis',NULL,NULL,'https://www.youtube.com/channel/UCt7kbHCaZS3fyKeAcURKzkA','https://open.spotify.com/artist/5ZCCZxsnf0NCy3LBpPtH9Q'),('Maria Farantouri',NULL,NULL,'https://www.youtube.com/channel/UCFKOUASaflpBD7MQFXyj0UQ','https://open.spotify.com/artist/72gzCdzXViRDopHWPPcG9M'),('Marinela',NULL,NULL,'https://www.youtube.com/channel/UCy7NM5w7EHysVGnfMYH2YYA','https://open.spotify.com/artist/4u5yrM5jlC3iviSQQXcMCK?autoplay=true'),('Melisses',NULL,NULL,'https://www.youtube.com/@melissestheband','https://open.spotify.com/artist/2ra3quFhImLyv0c9XTnWFl '),('Michalis Hatzigiannis',NULL,NULL,'https://www.youtube.com/channel/UCu7VTXaCPuk-0tzbpXQeprw','https://open.spotify.com/artist/77YRvt1TuxpCmW4Ydrx69A'),('Natasa Mpofiliou',NULL,NULL,'https://www.youtube.com/@NatassaBofiliouOfficial','https://open.spotify.com/artist/3ujPrFnLXVgRRelOhW1E2t'),('Natasa Theodoridou',NULL,NULL,'https://www.youtube.com/@natasatheodoridouofficial','https://open.spotify.com/artist/4hw4chBwI0fvJltPiQxPPD'),('Nikos Oikonomopoulos',NULL,NULL,'https://www.youtube.com/@Nikos_Oikonomopoulos','https://open.spotify.com/artist/1MicVtcHS3vuNVCrd1un7s'),('Nikos Vertis',NULL,NULL,'https://www.youtube.com/@NikosVertisOfficial','https://open.spotify.com/artist/6BOprAXvUTWZjImX2dFdEa'),('Notis Sfakianakis',NULL,NULL,'https://www.youtube.com/channel/UC3TCZbpudv5Jqj40eAW7pmA','https://open.spotify.com/artist/31ID15xoalmnSgwPhHJZrR'),('Panos Kiamos',NULL,NULL,'https://www.youtube.com/@PanosKiamosOfficial','https://open.spotify.com/artist/2EsTolBYIEICM1kx7MGluy'),('Panos Mouzourakis',NULL,NULL,'https://www.youtube.com/@PanosMouzourakis','https://open.spotify.com/artist/7byYRTzcmi0J2EnoVgvNyt'),('Pix Lax',NULL,NULL,'https://www.youtube.com/channel/UC-JinkO2RzjgpcYWu9zV34A','https://open.spotify.com/artist/0UHy12S8f94Sa0jc4dd6Jz'),('Sakis Rouvas','Born and raised in the island of Corfu, Sakis Rouvas started his music career in 1991, at the Thessaloniki Song Festival. \nSince then, he has steadily been at the top of the Greek music scene and show-biz with numerous distinctions among different fields, \nas he has received the Best New Singer, Best Song and the “Karolos Koun” Award for Best Stage Performance, \nas well as many other national and international awards.\nHis multitalented personality has been demonstrated through his leading roles in cinema, ancient drama and Hollywood movies, \nas well as through his participation in popular TV shows and large-scale events, including the 2004 Athens Olympics Closing Ceremony and the \nEurovision Song Contest, \nwhere he successfully represented Greece in 2004 and 2009. \nParallel to his career, Sakis has participated in several initiatives that aim to raise awareness for the protection of the environment \nand has demonstrated a long-term commitment to supporting children in need, while being himself a caring father of four.','C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/rouvas.png','https://www.youtube.com/@SakisRouvas','https://open.spotify.com/artist/0VuyN0xzSqykiDB2MxihTe'),('Stamatis Gonidis',NULL,NULL,'https://www.youtube.com/channel/UCnLHgW2keFD1SlKgQlKyiGQ','https://open.spotify.com/artist/5By2qsuXvDrrlvRfyy6Kyk'),('Stavento',NULL,NULL,'https://www.youtube.com/@StaventoTv','https://open.spotify.com/artist/43LNzVQi3AUDm6NGSlg4BK'),('Stelios Rokkos',NULL,NULL,'https://www.youtube.com/channel/UCJGCnBgcfzZkHvnIJpbGPsw','https://open.spotify.com/artist/01GDS9NmGwhzHm2VjbZFcG'),('Tamta',NULL,NULL,'https://www.youtube.com/@tamtaofficial','https://open.spotify.com/artist/0VGybH10ziMPo99SYOwMoQ'),('Themis Adamantidis',NULL,NULL,'https://www.youtube.com/channel/UCiH9ooAZZMKaRlSXSscF5ow','https://open.spotify.com/artist/5HYu4OrohE4gwR7IlHpbt8'),('Vaggelis Kakouriotis',NULL,NULL,'https://www.youtube.com/channel/UCg0ZTdXW_uhuHcJ12tZAHBA','https://open.spotify.com/artist/3N8sYD5TZzxCuMqi2czGyA'),('Vasilis Karras',NULL,NULL,'https://www.youtube.com/@karrasvevo7104/featured','https://open.spotify.com/artist/4P4cATtI7ozt4k4oKho4uz'),('Singers',NULL,NULL,NULL,NULL),('Adreas Barkoulis',NULL,NULL,NULL,NULL),('Alekos Alexandrakis',NULL,NULL,NULL,NULL),('Alexandros Mpourdoumis',NULL,NULL,NULL,NULL),('Aliki Vougiouklaki',NULL,NULL,NULL,NULL),('Alina Kotsovoulou',NULL,NULL,NULL,NULL),('Anna Panagiotopoulou',NULL,NULL,NULL,NULL),('Antonis Antoniou',NULL,NULL,NULL,NULL),('Antonis Loudaros',NULL,NULL,NULL,NULL),('Argiris Aggelou',NULL,NULL,NULL,NULL),('Dimitris Papamichail',NULL,NULL,NULL,NULL),('Dionisis Papagianopoulos',NULL,NULL,NULL,NULL),('Efi Papathoeodorou',NULL,NULL,NULL,NULL),('Eirini Koumarianou',NULL,NULL,NULL,NULL),('Eleni Kokkidou',NULL,NULL,NULL,NULL),('Eleni Rantou',NULL,NULL,NULL,NULL),('Elisavet Konstantinidou',NULL,NULL,NULL,NULL),('Giannis Bezos',NULL,NULL,NULL,NULL),('Giannis Tsimitselis',NULL,NULL,NULL,NULL),('Giorgos Kapoutzidis',NULL,NULL,NULL,NULL),('Giorgos Konstantinou',NULL,NULL,NULL,NULL),('Katerina Geronikolou',NULL,NULL,NULL,NULL),('Katerina Lexou',NULL,NULL,NULL,NULL),('Kostas Voutsas',NULL,NULL,NULL,NULL),('Kostas Xatzichristos',NULL,NULL,NULL,NULL),('Labros Konstantaras',NULL,NULL,NULL,NULL),('Markos Seferlis',NULL,NULL,NULL,NULL),('Melina Merkouri',NULL,NULL,NULL,NULL),('Michalis Reppas',NULL,NULL,NULL,NULL),('Mimis Fotopoulos',NULL,NULL,NULL,NULL),('Mirka Papakonstantinou',NULL,NULL,NULL,NULL),('Nikos Kourkoulos',NULL,NULL,NULL,NULL),('Nikos Rizos',NULL,NULL,NULL,NULL),('Ntinos Iliopoulos',NULL,NULL,NULL,NULL),('Orestis Makris',NULL,NULL,NULL,NULL),('Paulos Orkopoulos',NULL,NULL,NULL,NULL),('Renia Louizidou',NULL,NULL,NULL,NULL),('Smaragda Karidi',NULL,NULL,NULL,NULL),('Stamatis Fasoulis',NULL,NULL,NULL,NULL),('Tasos Giannopoulos',NULL,NULL,NULL,NULL),('Thanasis Tsaltabasis',NULL,NULL,NULL,NULL),('Thansis Veggos',NULL,NULL,NULL,NULL),('Thodoris Atheridis',NULL,NULL,NULL,NULL),('Vasilis Avlonitis',NULL,NULL,NULL,NULL),('Vasilis Logothetidis',NULL,NULL,NULL,NULL),('Vaso Laskaraki',NULL,NULL,NULL,NULL),('Adelfoi Katsimicha',NULL,NULL,'https://www.youtube.com/channel/UCndx9WyAiMmCWOegs8ate8Q','https://open.spotify.com/artist/2OVFX90h8lDzPZ5L5Mu0Vz?autoplay=true'),('Viki Mosxoliou',NULL,NULL,'https://www.youtube.com/channel/UC7dD6UEeBAP-mKUfYSDJxxg','https://open.spotify.com/artist/2OVFX90h8lDzPZ5L5Mu0Vz?autoplay=true'),('Stamatis Kokotas',NULL,NULL,'https://www.youtube.com/channel/UCXTWDGjwhQsfRYz-ceqdFeQ','https://open.spotify.com/artist/6RTaV5nZWyOxWWHkvDlrV4?autoplay=true'),('Grigoris Bithikotsis',NULL,NULL,'https://www.youtube.com/channel/UCcF9O3Qk0SnBY7Vv6J6GudA','https://open.spotify.com/artist/1baJfj5CCxPO9VEzlGSBLm?autoplay=true'),('Litsa Diamanti',NULL,NULL,'https://www.youtube.com/channel/UCw6JWpKAWTEe5Ne71Dd4lKg','https://open.spotify.com/artist/4ZVlnsWbTKXoTcP2CbGHZ6?autoplay=true'),('Tolis Voskopoulos',NULL,NULL,'https://www.youtube.com/channel/UC6cQHl0Itl11689QTUx_KgQ','https://open.spotify.com/artist/1mZFVxRgAeVl9xKES2z0vp?autoplay=true'),('Giannis Poulopoulos',NULL,NULL,'https://www.youtube.com/channel/UCXRKvTyNrhJx1Jk0OIZw2TQ','https://open.spotify.com/artist/5dXxT7IN0PJRpdWCxiCYfC?autoplay=true'),('Giannis Kalatzis',NULL,NULL,'https://www.youtube.com/channel/UCZ6gmXkDfaUJe_9mgVa9xrQ','https://open.spotify.com/artist/5rRlEHRXIXhMaFrnzeysmQ?autoplay=true'),('Glykeria',NULL,NULL,'https://www.youtube.com/channel/UCtfNlecMwydpGg3IP9qLgYQ','https://open.spotify.com/artist/0GBKwLQdkZ6tml0ssOSQ4f?autoplay=true'),('Manolis Mitsias',NULL,NULL,'https://www.youtube.com/channel/UC5lVn13CyQP-ak0ObqzHeVg','https://open.spotify.com/artist/0iPmB3x32r1vp0nL4gsjMo?autoplay=true'),('Dimitris Chorn',NULL,NULL,NULL,NULL),('Elli Lampeti',NULL,NULL,NULL,NULL),('Tzeni Karezi',NULL,NULL,NULL,NULL),('Nikos Stavridis',NULL,NULL,NULL,NULL),('Christophoros Papakaliatis',NULL,NULL,NULL,NULL),('Maro Kontou',NULL,NULL,NULL,NULL),('Maria Kavogianni',NULL,NULL,NULL,NULL),('Kostas Koklas',NULL,NULL,NULL,NULL),('Aggeliki Lampri',NULL,NULL,NULL,NULL),('Meletis Ilias',NULL,NULL,NULL,NULL),('Giannis Drakopoulos',NULL,NULL,NULL,NULL),('Nora Valsami',NULL,NULL,NULL,NULL),('Melpo Zarokosta',NULL,NULL,NULL,NULL),('Georgia Vasiliadou',NULL,NULL,NULL,NULL),('Mairi Aroni',NULL,NULL,NULL,NULL),('Hro Mane',NULL,NULL,NULL,NULL),('Eleni Krita',NULL,NULL,NULL,NULL),('Adreas Mparkoulos',NULL,NULL,NULL,NULL),('Tzois Evidi',NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `artist_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `artist_search`
+--
+
+DROP TABLE IF EXISTS `artist_search`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `artist_search` (
+  `FirstName` varchar(45) DEFAULT NULL,
+  `LastName` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artist_search`
+--
+
+LOCK TABLES `artist_search` WRITE;
+/*!40000 ALTER TABLE `artist_search` DISABLE KEYS */;
+INSERT INTO `artist_search` VALUES ('Sakis','Rouvas'),('Konstantinos','Argiros'),('Despoina','Vandi'),('Anna','Vissi'),('Vasilis','Karras'),('Haris','Alexiou'),('Eleni','Foureira'),('Elena','Paparizou'),('Dimitris','Mitropanos'),('Giorgos','Ntalaras'),('Antonis','Remos'),('Nikos','Vertis'),('Nikos','Oikonomopoulos'),('Giorgos','Mazonakis'),('Notis','Sfakianakis'),('Michalis','Hatzigiannis'),('Panos','Kiamos'),('Alkistis','Protopsalti'),('Natasa','Mpofiliou'),('Eleftheria','Arvanitaki'),('Elli','Kokkinou'),('Natasa','Theodoridou'),('Giorgos','Sampanis'),('Ivi','Adamou'),('Vasilis','Papakonstantinou'),('Dimitra','Galani'),('Giannis','Ploutarxos'),('Lefteris','Pantazis'),('Giannis','Kotsiras'),('Stelios','Rokkos'),('Vaggelis','Kakouriotis'),('Maria','Farandouri'),('Dionisys','Savvopoylos'),('Melina','Aslanidou'),('Themis','Adamantidis'),('Lavrentis','Machairitsas'),('Panos','Mouzourakis'),('Viky','Mosxolioy'),('Stamatis','Kokotas'),('Grigoris','Bithikotsis'),('Litsa','Diamanti'),('Tolis','Voskopoulos'),('Giannis','Kalatzis'),('Manolis','Mitsias'),('Giannis','Bezos'),('Markos','Seferlis'),('Aliki','Vougiouklaki'),('Nikos','Rizos'),('Kostas','Xatzichristos'),('Kostas','Voutsas'),('Dimitris','Papamichail'),('Melina','Merkouri'),('Mimis','Fotopoulos'),('Ntinos','Iliopoulos'),('Alekos','Alexandrakis'),('Dionisis','Papagianopoulos'),('Orestis','Makris'),('Thanasis','Veggos'),('Vasilis','Vasilis'),('Vasilis','Logothetidis'),('Labros','Konstantaras'),('Giorgos','Konstantinou'),('Nikos','Kourkoulos'),('Adreas','Barkoulis'),('Eleni','Rantou'),('Antonis','Antoniou'),('Eleni','Kokkidou'),('Vladimiros','Kiriakidis'),('Anna','Panagiotopoulou'),('Mirka','Papakonstantinou'),('Vaso','Laskaraki'),('Renia','Louizidou'),('Pavlos','Orkopoulos'),('Giorgos','Kapoutzidis'),('Argyris','Aggelou'),('Efi','Papathoeodorou'),('Eirini','Koumarianou'),('Elisavet','Konstantinidou'),('Smaragda','Karidi'),('Thodoris','Atheridis'),('Alina','Kotsovoulou'),('Giannis','Tsimitselis'),('Katerina','Geronikolou'),('Alexandros','Antonopoulos'),('Meletis','Ilias'),('Alexandros','Mpourdoumis'),('Michalis','Reppas'),('Antonis','Loudaros'),('Stamatis','Fasoulis'),('Viki','Stavropoulou'),('Katerina','Lexou'),('Thanasis','Tsaltabasis'),('Tasos','Giannopoulos'),('Dimitris','Xorn'),('Elli','Lampeti'),('Tzeni','Karezi'),('Nikos','Stavridis'),('Christophoros','Papakaliatis'),('Maro','Kontou'),('Maria','Kavogianni'),('Kostas','Koklas'),('Aggeliki','Lampri'),('Elisavet','Konstantinidou'),('Giannis','Drakopoulos'),('Nora','Valsami'),('Melpo','Zarokosta'),('Georgia','Vasiliadou'),('Mairi','Aroni'),('Hro','Mane'),('Eleni','Krita'),('Adreas','Mparkoulis'),('Tzois','Evidi');
+/*!40000 ALTER TABLE `artist_search` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `artists`
+--
+
+DROP TABLE IF EXISTS `artists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `artists` (
+  `Actors` varchar(255) DEFAULT NULL,
+  `Singers` varchar(255) DEFAULT NULL,
+  UNIQUE KEY `Singers_UNIQUE` (`Singers`),
+  UNIQUE KEY `Actors_UNIQUE` (`Actors`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artists`
+--
+
+LOCK TABLES `artists` WRITE;
+/*!40000 ALTER TABLE `artists` DISABLE KEYS */;
+INSERT INTO `artists` VALUES (NULL,'Sakis Rouvas'),(NULL,'Konstantinos Argiros'),(NULL,'Despoina Vandi'),(NULL,'Anna Vissi'),(NULL,'Vasilis Karras'),(NULL,'Marinela'),(NULL,'Haris Alexiou'),(NULL,'Eleni Foureira'),(NULL,'Elena Paparizou'),(NULL,'Dimitris Mitropanos'),(NULL,'Giorgos Dalaras'),(NULL,'Melisses'),(NULL,'Tamta'),(NULL,'Antonis Remos'),(NULL,'Nikos Vertis'),(NULL,'Nikos Oikonomopoulos'),(NULL,'Giorgos Mazonakis'),(NULL,'Notis Sfakianakis'),(NULL,'Mixalis Hatziganns'),(NULL,'Panos Kiamos'),(NULL,'Alkistis Protopsalti'),(NULL,'Natasa Mpofiliou'),(NULL,'Eleftheria Arvanitaki'),(NULL,'Pix Lax'),(NULL,'Elli Kokkinou'),(NULL,'Natasa Theodoridou'),(NULL,'Giorgos Sabanis'),(NULL,'Stavento'),(NULL,'Ivi Adamou'),(NULL,'Vasilis Papakonstantinou'),(NULL,'Dimitra Galani'),(NULL,'Giannis Ploutarxos'),(NULL,'Lefteris Pantazis'),(NULL,'Giannis Kotsiras'),(NULL,'Stelios Rokkos'),(NULL,'Vaggelis Kakouriotis'),(NULL,'Maria Farantouri'),(NULL,'Dionisys Savopoulos'),(NULL,'Hmiskoumpria'),(NULL,'Themis Adamantidis'),(NULL,'Lavredis Maxairitsas'),(NULL,'Atzela Dimitriou'),(NULL,'Stamatis Gonidis'),(NULL,'Kostis Maravelias'),(NULL,'Panos Mouzourakis'),(NULL,'Dionisis Sxoinas'),('Giannis Bezos',NULL),('Markos Seferlis',NULL),('Vaso Laskaraki',NULL),('Adreas Barkoulis',NULL),('Alekos Alexandrakis',NULL),('Alexandros Mpourdoumis',NULL),('Aliki Vougiouklaki',NULL),('Alina Kotsovoulou',NULL),('Anna Panagiotopoulou',NULL),('Antonis Antoniou',NULL),('Antonis Loudaros',NULL),('Argiris Aggelou',NULL),('Dimitris Papamichail',NULL),('Dionisis Papagianopoulos',NULL),('Efi Papathoeodorou',NULL),('Eirini Koumarianou',NULL),('Eleni Kokkidou',NULL),('Eleni Rantou',NULL),('Elisavet Konstantinidou',NULL),('Giannis Tsimitselis',NULL),('Giorgos Kapoutzidis',NULL),('Giorgos Konstantinou',NULL),('Katerina Geronikolou',NULL),('Katerina Lexou',NULL),('Kostas Voutsas',NULL),('Kostas Xatzichristos',NULL),('Labros Konstantaras',NULL),('Melina Merkouri',NULL),('Michalis Reppas',NULL),('Mimis Fotopoulos',NULL),('Mirka Papakonstantinou',NULL),('Nikos Kourkoulos',NULL),('Nikos Rizos',NULL),('Ntinos Iliopoulos',NULL),('Orestis Makris',NULL),('Paulos Orkopoulos',NULL),('Renia Louizidou',NULL),('Smaragda Karidi',NULL),('Stamatis Fasoulis',NULL),('Tasos Giannopoulos',NULL),('Thanasis Tsaltabasis',NULL),('Thansis Veggos',NULL),('Thodoris Atheridis',NULL),('Vasilis Avlonitis',NULL),('Vasilis Logothetidis',NULL),('Viki Stavropoulou',NULL),('Vladimiros Kiriakidis',NULL),(NULL,'Tolis Voskopoulos'),(NULL,'Adelfoi Katsimicha'),(NULL,'Viki Mosxoliou'),(NULL,'Stamatis Kokotas'),(NULL,'Grigoris Bithikotsis'),(NULL,'Litsa Diamanti'),(NULL,'Giannis Poulopoulos'),(NULL,'Manolis Mitsias');
+/*!40000 ALTER TABLE `artists` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-06-12 21:46:41
