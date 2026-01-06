@@ -7,6 +7,7 @@ import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 
+
 '''
 UPDATE A COLUMN MYSQL WORKBENCH
 
@@ -366,6 +367,7 @@ not_found_label.grid(row=0,column=0)
 
 no_img_found_label = customtkinter.CTkLabel(artist_photo,text='', font=('Arial',16)) #for when there is not an image for an artist
 no_img_found_label.grid(row=0,column=0)
+
 
 
 root.mainloop()
