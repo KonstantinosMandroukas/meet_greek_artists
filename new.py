@@ -30,7 +30,7 @@ mydb = mysql.connector.connect(
 	user = "root    ",
 	password = "Tigbest10",
     database = "meet_greek_artists"
-) # noqa: F821
+) 
 
 cursor = mydb.cursor()
 

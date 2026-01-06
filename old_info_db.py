@@ -5,4 +5,4 @@ mydb = mysql.connector.connect(
 	user = "root",
 	password = "admin1234",
     database = "meet_greek_artists"
-)
+) # noqa: F821
