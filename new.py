@@ -7,7 +7,6 @@ import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 
-
 '''
 UPDATE A COLUMN MYSQL WORKBENCH
 
