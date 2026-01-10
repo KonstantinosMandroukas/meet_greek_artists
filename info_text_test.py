@@ -8,9 +8,6 @@ root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
 
-if os.environ.get('DISPLAY') is None:
-    pass
-
 
 tabs = customtkinter.CTkTabview( root, width=1100, height=750)
 artist_text = tabs.add("Text")
