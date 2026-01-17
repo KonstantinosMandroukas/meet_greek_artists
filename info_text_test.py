@@ -3,7 +3,7 @@ import tkinter as tk
 import os
 
 root = customtkinter.CTk()
-root.geometry("1500x900")
+root.geometry("1700x900")
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
@@ -17,7 +17,7 @@ artist_listen = tabs.add("Listen/Plays")
 
 tabs.grid(row=0, column=1, padx=(20,0), pady=(50,40))
 
-text = customtkinter.CTkLabel(artist_text, text="PUT THE DAMN TEXT HERE", font=("Arial", 16))
+text = customtkinter.CTkLabel(artist_text, text="Originally from Lefkada, Konstantinos Argiros was born in Athens, Greece, where he grew up with his family. He is one of three siblings (triplets). At the age of five,\nhe took his first steps in music, learning to play the piano. Later on, he learned to play the guitar and some other Greek musical instruments. He began to work professionally as a singer,\nappearing at 'FIX' nightclub in Thessaloniki. In the summer of 2008, he collaborated with record company Sony BMG and released an album. Between September 2011\nand May 2012, he appeared at 'VOX' alongside Greek singer Stella Kali. ", font=("Arial", 16))
 text.grid(row=1, column=0)
 
 
