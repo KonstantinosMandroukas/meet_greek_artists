@@ -67,27 +67,4 @@ option_frame.grid_rowconfigure(4, weight=1)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 root.mainloop()
