@@ -8,9 +8,6 @@ from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg2
 
-#hello there
-#bye there
-
 '''
 UPDATE A COLUMN MYSQL WORKBENCH
 
@@ -71,7 +68,7 @@ def open_website(url): #To open websites/connected to buttons
     else:
         raise Exception("Unsupported operating system")
  
-def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links)
+def Get_infoAndDisplay(bt_val): #Displaying info (text / photo / yt or spotify links)
     Clear_tabs()
     not_found_label.configure(text='')
     tabs.grid(row=0, column=1, padx=(20,0), pady=(50,40))
@@ -93,7 +90,8 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
         cursor.execute(sq, (first_name, last_name))
     else:
         sq = "SELECT info FROM artists_all WHERE first_name = %s"
-        cursor.execute(sq, (first_name,))
+        print(type(first_name))
+        cursor.execute(sq, val)
     results = cursor.fetchall()
     if results and results[0][0]:
         text_label = customtkinter.CTkLabel(artist_text, text=(results[0][0]), font=("Arial", 16))
@@ -142,7 +140,7 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
         morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/theatre/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
         morecom.grid(row=1, column=1)
     '''display image'''
-    # Get image link from database
+    # Get image link from database (handle single-name artists as well)
     if last_name:
         sq = "SELECT image_link FROM artists_all WHERE first_name = %s AND last_name = %s"
         cursor.execute(sq, (first_name, last_name))
@@ -150,25 +148,40 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
         sq = "SELECT image_link FROM artists_all WHERE first_name = %s"
         cursor.execute(sq, (first_name,))
     results2 = cursor.fetchall()
-    print(results2[0][0])
-    if not results2 or not results2[0][0]:
+
+    if not results2 or not results2[0] or not results2[0][0]:
         no_img_found_label.configure(text=f'There is not an available image for {bt_val} right now.')
         no_img_found_label.grid(row=0, column=0)
     else:
+        image_path = str(results2[0][0]).strip()
         try:
-            image_path = results2[0][0]
-            # new_image_path = image_path.replace('\n','') #type: ignore
-            response = requests.get(image_path)
-            img = Image.open(BytesIO(response.content))
-            width, height = tabs.winfo_reqwidth(), tabs.winfo_reqheight()  # Get image dimensions
+            # If the path is a URL, fetch it; otherwise treat it as local file path.
+            if image_path.lower().startswith(("http://", "https://")):
+                response = requests.get(image_path, timeout=5)
+                response.raise_for_status()
+                img = Image.open(BytesIO(response.content))
+            else:
+                # Make relative paths absolute to the script directory
+                if not os.path.isabs(image_path):
+                    base_dir = os.path.dirname(__file__)
+                    image_path = os.path.join(base_dir, image_path)
+                img = Image.open(image_path)
+
+            # Use actual widget sizes (fallback to sensible defaults if small)
+            width, height = tabs.winfo_width(), tabs.winfo_height()
+            if width < 50:
+                width = 600
+            if height < 50:
+                height = 400
+
             artist_image = customtkinter.CTkImage(light_image=img, dark_image=img, size=(width, height))
-            image_res = customtkinter.CTkLabel(artist_photo, image=artist_image, text="")   
-            image_res.grid(row=10, column=10)
-        except (requests.exceptions.ConnectionError, requests.exceptions.RequestException, UnidentifiedImageError):
-            not_found_label.configure(text=f'Unable to load the image for {bt_val}. Please check your internet connection.')
+            image_res = customtkinter.CTkLabel(artist_photo, image=artist_image, text="")
+            image_res.grid(row=0, column=0)
+        except (requests.exceptions.RequestException, UnidentifiedImageError, OSError) as e:
+            not_found_label.configure(text=f'Unable to load the image for {bt_val}. Please check the path or your internet connection.')
             not_found_label.grid(row=1, column=1)
-            CTkMessagebox(title="No Internet", message="Cannot load images — please check your connection.")
-            return None  # No internet or other nerwork error
+            CTkMessagebox(title="Image Error", message="Cannot load image — please check the path or your connection.")
+            return None  # Stop further processing when image loading fails
 
 def clear_frame(frame):  #customtkinter.CTkFrame or customtkinter.CTkScrollableFrame #clears a specific frame
     for widget in frame.winfo_children():
