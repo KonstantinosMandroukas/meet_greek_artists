@@ -150,14 +150,15 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
         sq = "SELECT image_link FROM artists_all WHERE first_name = %s"
         cursor.execute(sq, (first_name,))
     results2 = cursor.fetchall()
+    print(results2[0][0])
     if not results2 or not results2[0][0]:
         no_img_found_label.configure(text=f'There is not an available image for {bt_val} right now.')
         no_img_found_label.grid(row=0, column=0)
     else:
         try:
             image_path = results2[0][0]
-            new_image_path = image_path.replace('\n','') #type: ignore
-            response = requests.get(new_image_path)
+            # new_image_path = image_path.replace('\n','') #type: ignore
+            response = requests.get(image_path)
             img = Image.open(BytesIO(response.content))
             width, height = tabs.winfo_reqwidth(), tabs.winfo_reqheight()  # Get image dimensions
             artist_image = customtkinter.CTkImage(light_image=img, dark_image=img, size=(width, height))
