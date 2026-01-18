@@ -6,6 +6,7 @@ import mysql.connector
 import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
+import psycopg2
 
 #hello there
 #bye there
@@ -21,21 +22,21 @@ SET image_path = 'hello' WHERE Name = 'Konstantinos Argiros';
 
 
 GROUP ROWS
-SELECT FirstName ,  LastName AS Total FROM meet_greek_artists.artist_search GROUP BY FirstName, LastName;
+SELECT first_name ,  last_name AS Total FROM meet_greek_artists.artist_search GROUP BY first_name, last_name;
 #change accordingly
 
 '''
 
 '''Database connection'''
-mydb = mysql.connector.connect(
-	host = "localhost",
-	user = "root    ",
-	password = "Tigbest10",
-    database = "meet_greek_artists"
+mydb = psycopg2.connect(
+	host = "db.tznssyoujmjylijfqevh.supabase.co",
+	user = "postgres",
+	password = "UmmGLwSZcITWYg9t",
+    database = "postgres",
+    port='5432'
 ) 
 
 cursor = mydb.cursor()
-
 
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
@@ -88,10 +89,10 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
 
     '''display text'''
     if last_name:
-        sq = "SELECT Info FROM artists_all WHERE FirstName = %s AND LastName = %s"
+        sq = "SELECT info FROM artists_all WHERE first_name = %s AND last_name = %s"
         cursor.execute(sq, (first_name, last_name))
     else:
-        sq = "SELECT Info FROM artists_all WHERE FirstName = %s"
+        sq = "SELECT info FROM artists_all WHERE first_name = %s"
         cursor.execute(sq, (first_name,))
     results = cursor.fetchall()
     if results and results[0][0]:
@@ -102,15 +103,15 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
         text_label.grid(row=1, column=1)
     name_label.configure(text=f"You are currently looking at\n{bt_val}")
     '''display other info'''
-    sq = "SELECT Singers FROM artists WHERE Singers = %s"
-    val = [(bt_val)]
-    cursor.execute(sq, val)
+    sq = "SELECT * FROM artists_all WHERE id = 'singer' AND first_name = %s AND last_name = %s"
+    # val = [(bt_val)]
+    cursor.execute(sq,(first_name, last_name))
     results = cursor.fetchall()
     if len(results) > 0: 
         #Get Spotify links
-        sq = "SELECT Spotify_url FROM artist_info WHERE Name = %s"
-        val = [(bt_val)]
-        cursor.execute(sq, val)
+        sq = "SELECT spotify_link FROM artists_all WHERE first_name = %s AND last_name = %s"
+        # val = [(bt_val)]
+        cursor.execute(sq, (first_name, last_name))
         results = cursor.fetchall()
         results_str = results[0][0] if results and results[0] else None
         if results_str:
@@ -120,9 +121,9 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
             spotify.grid(row=1, column=0)
 
         #Get Yt Links
-        sq = "SELECT YouTube_url FROM artist_info WHERE Name = %s"
+        sq = "SELECT yt_link FROM artists_all WHERE first_name = %s AND last_name = %s"
         val = [(bt_val)]
-        cursor.execute(sq, val)
+        cursor.execute(sq, (first_name, last_name))
         results = cursor.fetchall()
         results_str2 = results[0][0] if results and results[0] else None
         if results_str2:
@@ -143,10 +144,10 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text/photo/yt or spotify links
     '''display image'''
     # Get image link from database
     if last_name:
-        sq = "SELECT ImageLink FROM artists_all WHERE FirstName = %s AND LastName = %s"
+        sq = "SELECT image_link FROM artists_all WHERE first_name = %s AND last_name = %s"
         cursor.execute(sq, (first_name, last_name))
     else:
-        sq = "SELECT ImageLink FROM artists_all WHERE FirstName = %s"
+        sq = "SELECT image_link FROM artists_all WHERE first_name = %s"
         cursor.execute(sq, (first_name,))
     results2 = cursor.fetchall()
     if not results2 or not results2[0][0]:
@@ -194,11 +195,10 @@ def Select_artist_category(choise): #depends on the users selection. It connects
     Clear_tabs()
     if choise == "Singers":
         clear_frame(scrolable_frame)
-        sq = "SELECT FirstName, LastName FROM artists_all WHERE id = 'singer'"
+        sq = "SELECT first_name, last_name FROM artists_all WHERE id = 'singer'"
         cursor.execute(sq)
         results = cursor.fetchall()
-        results.sort(key=lambda x: (x[0], x[1]))
-        
+        # results.sort(key=lambda x: (x[0], x[1]))
         counter = 0
         rowx = 1
         columny = 0
@@ -214,10 +214,10 @@ def Select_artist_category(choise): #depends on the users selection. It connects
         
     elif choise == "Actors":
         clear_frame(scrolable_frame)
-        sq = "SELECT FirstName, LastName FROM artists_all WHERE id = 'actor'"
+        sq = "SELECT first_name, last_name FROM artists_all WHERE id = 'actor'"
         cursor.execute(sq)
         results = cursor.fetchall()
-        results.sort(key=lambda x: (x[0], x[1]))
+        # results.sort(key=lambda x: (x[0], x[1]))
         
                 
         counter = 0
@@ -245,6 +245,9 @@ def Search(): #handles the searching
     clear_frame(option_frame)
 
     parts = user_input.split()
+    first = parts[0].lower()
+    last = parts[-1].lower() 
+    full_name = f"{first} {last}"
 
     def add_buttons(rows):
         option_frame.grid(row=0, column=1, sticky="s")
@@ -260,19 +263,18 @@ def Search(): #handles the searching
 
     # normalize to lowercase for case-insensitive matching in SQL
     if len(parts) >= 2:
-        first = parts[0].lower()
-        last = parts[-1].lower()  # allow middle names by taking last token as last name
-        sq = "SELECT FirstName, LastName FROM artists_all WHERE LOWER(FirstName) = %s AND LOWER(LastName) = %s"
-        cursor.execute(sq, (first, last))
+        name = parts[0].lower()
+         # allow middle names by taking last token as last name
+        sq = "SELECT first_name, last_name FROM artists_all WHERE LOWER(first_name) = %s AND LOWER(last_name) = %s"
+        cursor.execute(sq, (first,last))
         results = cursor.fetchall()
-        
 
         if results:
             add_buttons(results)
         else:
             # fallback: search by last name in artist_search
-            sq = "SELECT FirstName, LastName FROM artists_all WHERE LOWER(LastName) = %s"
-            cursor.execute(sq, (last,))
+            sq = "SELECT first_name, last_name FROM artists_all WHERE LOWER(last_name) = %s"
+            cursor.execute(sq, last)
             results = cursor.fetchall()
             if results:
                 add_buttons(results)
@@ -283,8 +285,8 @@ def Search(): #handles the searching
     else:
         # single-word search: try first name or last name
         name = parts[0].lower()
-        sq = "SELECT FirstName, LastName FROM artists_all WHERE LOWER(FirstName) = %s OR LOWER(LastName) = %s"
-        cursor.execute(sq, (name, name))
+        sq = "SELECT first_name, last_name FROM artists_all WHERE LOWER(first_name) = %s OR LOWER(last_name) = %s"
+        cursor.execute(sq, (first, last))
         results = cursor.fetchall()
         if results:
             # normalize None last names to empty string so add_buttons builds names correctly
