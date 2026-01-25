@@ -2,7 +2,6 @@ import customtkinter
 import tkinter as tk
 from PIL import Image, ImageTk, UnidentifiedImageError
 import os
-import mysql.connector
 import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
