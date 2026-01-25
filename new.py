@@ -67,7 +67,7 @@ def open_website(url): #To open websites/connected to buttons
     else:
         raise Exception("Unsupported operating system")
  
-def Get_infoAndDisplay(bt_val): #Displaying info (text / photo / yt or spotify links)
+def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spotify links)
     Clear_tabs()
     not_found_label.configure(text='')
     tabs.grid(row=0, column=1, padx=(20,0), pady=(50,40))
@@ -82,6 +82,7 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text / photo / yt or spotify l
     else:
         first_name = parts[0]
         last_name = None
+        
 
     '''display text'''
     if last_name:
@@ -89,7 +90,7 @@ def Get_infoAndDisplay(bt_val): #Displaying info (text / photo / yt or spotify l
         cursor.execute(sq, (first_name, last_name))
     else:
         sq = "SELECT info FROM artists_all WHERE first_name = %s"
-        print(type(first_name))
+        val = [(first_name)]
         cursor.execute(sq, val)
     results = cursor.fetchall()
     if results and results[0][0]:
@@ -270,7 +271,7 @@ def Search(): #handles the searching
             btn = customtkinter.CTkButton(
                 option_frame,
                 text=full_name,
-                command=lambda name=full_name: Get_infoAndDisplay(name)
+                command=lambda: Get_infoAndDisplay(full_name)
             )
             btn.grid(row=1 + i, column=1, pady=5)
 
