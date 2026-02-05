@@ -51,7 +51,7 @@ icon_path = "C:/Users/konma/Documents/vs code-programming/meet greek artists/art
 root.wm_iconbitmap(icon_path)
 
 '''Tab View'''
-tabs = customtkinter.CTkTabview( root, width=1100, height=750)
+tabs = customtkinter.CTkTabview(root, width=1100, height=750)
 artist_text = tabs.add("Text")
 artist_photo = tabs.add("Photos")
 artist_listen = tabs.add("Listen/Plays")
@@ -135,8 +135,8 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
         morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/music/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
         morecom.grid(row=1, column=2)
     else:
-        morecom_tetx = customtkinter.CTkLabel(artist_listen, text="For more information about plays that the artist\nmight be performing on visit more.com", font=("Arial", 20))
-        morecom_tetx.grid(row=0, column=1)
+        morecom_text = customtkinter.CTkLabel(artist_listen, text="For more information about plays that the artist\nmight be performing on visit more.com", font=("Arial", 20))
+        morecom_text.grid(row=0, column=1)
         morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/theatre/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
         morecom.grid(row=1, column=1)
     '''display image'''
