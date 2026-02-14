@@ -1,6 +1,13 @@
 import customtkinter
 import tkinter as tk
 import os
+import pytest
+import os
+
+@pytest.mark.skipif(os.environ.get('GITHUB_ACTIONS') == 'true', reason="No display in CI")
+def test_my_gui_logic():
+    # your test here
+    pass
 
 root = customtkinter.CTk()
 root.geometry("1700x900")
