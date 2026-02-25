@@ -7,23 +7,6 @@ from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg2
 
-#hello world this is a test to see if the error will still appear. 
-'''
-UPDATE A COLUMN MYSQL WORKBENCH
-
-SELECT * FROM meet_greek_artists.artist_info; 
-UPDATE meet_greek_artists.artist_info
-SET image_path = 'hello' WHERE Name = 'Konstantinos Argiros';  
-
-#change accordingly
-
-
-GROUP ROWS
-SELECT first_name ,  last_name AS Total FROM meet_greek_artists.artist_search GROUP BY first_name, last_name;
-#change accordingly
-
-'''
-
 '''Database connection'''
 mydb = psycopg2.connect(
 	host = "db.tznssyoujmjylijfqevh.supabase.co",
