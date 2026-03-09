@@ -6,6 +6,7 @@ import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg2
+import mailtrap as mt
 
 '''Database connection'''
 mydb = psycopg2.connect(
@@ -50,6 +51,44 @@ def open_website(url): #To open websites/connected to buttons
         os.system(f'xdg-open {url}')
     else:
         raise Exception("Unsupported operating system")
+    
+def Send_mail(window,name, category):
+    mail = mt.Mail(
+        sender=mt.Address(email="konmanfts@demomailtrap.co", name="Mailtrap Test"),
+        to=[mt.Address(email="konmanfts@gmail.com")],
+        subject="Meet Greek Artists: New Artist Request",
+        text=f"Name:{name}\nCategory:{category}",
+        category="New Artist Request",
+    )
+
+    client = mt.MailtrapClient(token="d0e086171bef2fe7ac6e7f602d80c7d1")
+    response = client.send(mail)
+    window.destroy() 
+    
+def request_artist():
+    win = customtkinter.CTkToplevel()
+    win.title('Request an artist')
+    win.geometry('400x400')
+    win.resizable(False, False)
+    win.lift()
+    win.focus_force()
+    win.attributes('-topmost',True)
+    
+    name_label = customtkinter.CTkLabel(win, text="Enter artist's name:")
+    name_label.pack()
+    name_entry = customtkinter.CTkEntry(win, placeholder_text='Name')
+    name_entry.pack()
+    artist_category_label = customtkinter.CTkLabel(win, text="Select the artist's category")
+    artist_category_label.pack()
+    artist_category_values = ["Actor", "Singer"]
+    artist_category = customtkinter.CTkComboBox(win, values=artist_category_values)
+    artist_category.pack()
+    choise = artist_category.get()
+    # category = 'actor' if choise == 'actor' else category == 'singer'
+    
+    btn_ok = customtkinter.CTkButton(win, text='Send Request', command=lambda:Send_mail(window=win,name=name_entry.get(), category=choise))
+    btn_ok.pack(pady=100)
+    
  
 def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spotify links)
     Clear_tabs()
@@ -209,6 +248,9 @@ def Select_artist_category(choise): #depends on the users selection. It connects
             button.grid(row=rowx, column=columny, padx=paddx, pady=paddy)
             rowx += 4
             counter += 1
+            
+        req_button = customtkinter.CTkButton(scrolable_frame, text='Request and artist', fg_color='red', command=lambda:request_artist())
+        req_button.grid(row=rowx, column=columny, padx=paddx, pady=paddy)
         
     elif choise == "Actors":
         clear_frame(scrolable_frame)
@@ -230,6 +272,9 @@ def Select_artist_category(choise): #depends on the users selection. It connects
             button.grid(row=rowx, column=columny, padx=paddx, pady=paddy)
             rowx += 4
             counter += 1
+            
+        req_button = customtkinter.CTkButton(scrolable_frame, text='Request and artist', fg_color='red',hover_color='red', command=lambda:request_artist())
+        req_button.grid(row=rowx, column=columny, padx=paddx, pady=paddy)
             
 def Search(): #handles the searching   
     tabs.grid_forget()
