@@ -6,8 +6,7 @@ import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg2
-import mailtrap as mt
-
+from mail import Send_Email
 '''Database connection'''
 mydb = psycopg2.connect(
 	host = "db.tznssyoujmjylijfqevh.supabase.co",
@@ -53,16 +52,8 @@ def open_website(url): #To open websites/connected to buttons
         raise Exception("Unsupported operating system")
     
 def Send_mail(window,name, category):
-    mail = mt.Mail(
-        sender=mt.Address(email="konmanfts@demomailtrap.co", name="Mailtrap Test"),
-        to=[mt.Address(email="konmanfts@gmail.com")],
-        subject="Meet Greek Artists: New Artist Request",
-        text=f"Name:{name}\nCategory:{category}",
-        category="New Artist Request",
-    )
-
-    client = mt.MailtrapClient(token="d0e086171bef2fe7ac6e7f602d80c7d1")
-    response = client.send(mail)
+    txt_mail = Send_Email(f"{name =}\n{category =}")
+    txt_mail.send()
     window.destroy() 
     
 def request_artist():
