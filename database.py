@@ -1,7 +1,8 @@
 import mysql.connector
 
 
-# Creating connection object
+# Creating connection object 
+#credentials for local db connection
 mydb = mysql.connector.connect(
 	host = "localhost",
 	user = "root",

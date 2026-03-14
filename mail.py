@@ -1,7 +1,4 @@
 import mailtrap as mt
-
-
-
 class Send_Email():
     def __init__(self, content:str):
         self.content = content
