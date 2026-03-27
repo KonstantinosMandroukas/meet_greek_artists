@@ -16,8 +16,6 @@ mydb = psycopg2.connect(
     port='5432'
 ) 
 
-
-#this is a test
 cursor = mydb.cursor()
 
 ''' app apearance'''
