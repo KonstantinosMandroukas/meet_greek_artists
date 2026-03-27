@@ -11,9 +11,9 @@ from mail import Send_Email
 mydb = psycopg2.connect(
 	host = "db.tznssyoujmjylijfqevh.supabase.co",
 	user = "postgres",
-	password = "UmmGLwSZcITWYg9t",
+	password = "9EJEppwXAtSFoBJn",
     database = "postgres",
-    port='5432'
+    port='6543'
 ) 
 
 cursor = mydb.cursor()
