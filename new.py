@@ -7,16 +7,7 @@ from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg2
 from mail import Send_Email
-'''Database connection'''
-mydb = psycopg2.connect(
-	host = "db.tznssyoujmjylijfqevh.supabase.co",
-	user = "postgres",
-	password = "9EJEppwXAtSFoBJn",
-    database = "postgres",
-    port='6543'
-) 
 
-cursor = mydb.cursor()
 
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
@@ -29,6 +20,23 @@ root.geometry("1500x900")
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
+
+'''Database connection'''
+
+mydb = psycopg2.connect(
+    host = "aws-1-eu-west-1.pooler.supabase.com",
+    user = "postgres",
+    password = "9EJEppwXAtSFoBJn",
+    database = "postgres",
+    port='6543'
+) 
+
+cursor = mydb.cursor()
+
+
+
+#old-host: db.tznssyoujmjylijfqevh.supabase.co
+    
 
 '''app icon'''
 icon_path = "C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/logo.ico"
