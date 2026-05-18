@@ -5,9 +5,9 @@ import os
 import requests
 from io import BytesIO
 from CTkMessagebox import CTkMessagebox
-import psycopg2
+import psycopg
 from mail import Send_Email
-
+from dotenv import load_dotenv
 
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
@@ -21,14 +21,26 @@ root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
 
-'''Database connection'''
 
-mydb = psycopg2.connect(
-    host = "aws-1-eu-west-1.pooler.supabase.com",
-    user = "postgres",
-    password = "9EJEppwXAtSFoBJn",
-    database = "postgres",
-    port='6543'
+load_dotenv()
+
+'''Database connection'''
+db_host = os.environ.get('DB_HOST')
+db_port = os.environ.get('DB_PORT')
+db_user = os.environ.get('DB_USER')
+db_pass = os.environ.get('DB_PASS')
+db_name = os.environ.get('DB_NAME')
+
+
+
+
+mydb = psycopg.connect(
+    host = db_host,
+    user = db_user,
+    password = db_pass,
+    dbname = db_name,
+    port = db_port,
+    sslmode='require'
 ) 
 
 cursor = mydb.cursor()
