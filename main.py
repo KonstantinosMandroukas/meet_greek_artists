@@ -1,5 +1,4 @@
 #THIS IS NOT USABLE ANYMORE
-#bye bye bitch
 
 '''libraries'''
 import customtkinter
