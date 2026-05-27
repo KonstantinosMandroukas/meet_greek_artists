@@ -206,7 +206,7 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
             if width < 50:
                 width = 600
             if height < 50:
-                height = 400
+                height = 400 
 
             artist_image = customtkinter.CTkImage(light_image=img, dark_image=img, size=(width, height))
             image_res = customtkinter.CTkLabel(artist_photo, image=artist_image, text="")
