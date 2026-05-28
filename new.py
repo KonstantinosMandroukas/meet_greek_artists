@@ -71,10 +71,31 @@ def open_website(url): #To open websites/connected to buttons
     else:
         raise Exception("Unsupported operating system")
     
-def Send_mail(window,name, category):
-    txt_mail = Send_Email(f"{name =}\n{category =}")
+
+def Send_mail(action, window,**info):
+    if action == 'report':
+        txt_mail = Send_Email(f"Problem: {info['problem']}", action)
+    elif action == 'request':
+        txt_mail = Send_Email(f"name = {info['name']}\ncategory = {info['category']}", action)
     txt_mail.send()
     window.destroy() 
+    
+    
+def report_problem():
+    win = customtkinter.CTkToplevel()
+    win.title('Report a problem')
+    win.geometry('400x400')
+    win.resizable(False, False)
+    win.lift()
+    win.focus_force()
+    win.attributes('-topmost', True)
+    
+    label = customtkinter.CTkLabel(master=win, text='Describe the problem in the field below:')
+    label.pack()
+    entry = customtkinter.CTkEntry(master=win, placeholder_text='Enter problem here...')
+    entry.pack()
+    button = customtkinter.CTkButton(master=win, text='Send Problem', command=lambda:Send_mail(action='report', window=win, problem = entry.get()))
+    button.pack()    
     
 def request_artist():
     win = customtkinter.CTkToplevel()
@@ -96,8 +117,7 @@ def request_artist():
     artist_category.pack()
     choise = artist_category.get()
     # category = 'actor' if choise == 'actor' else category == 'singer'
-    
-    btn_ok = customtkinter.CTkButton(win, text='Send Request', command=lambda:Send_mail(window=win,name=name_entry.get(), category=choise))
+    btn_ok = customtkinter.CTkButton(win, text='Send Request', command=lambda:Send_mail(action='request',window=win,name=name_entry.get(), category=choise))
     btn_ok.pack(pady=100)
     
  
@@ -246,7 +266,7 @@ def Select_artist_category(choise): #depends on the users selection. It connects
         sq = "SELECT first_name, last_name FROM artists_all WHERE id = 'singer'"
         cursor.execute(sq)
         results = cursor.fetchall()
-        # results.sort(key=lambda x: (x[0], x[1]))
+        results.sort(key=lambda x: (x[0], x[1]))
         counter = 0
         rowx = 1
         columny = 0
@@ -263,12 +283,14 @@ def Select_artist_category(choise): #depends on the users selection. It connects
         req_button = customtkinter.CTkButton(scrolable_frame, text='Request and artist', fg_color='red', command=lambda:request_artist())
         req_button.grid(row=rowx, column=columny, padx=paddx, pady=paddy)
         
+        
+        
     elif choise == "Actors":
         clear_frame(scrolable_frame)
         sq = "SELECT first_name, last_name FROM artists_all WHERE id = 'actor'"
         cursor.execute(sq)
         results = cursor.fetchall()
-        # results.sort(key=lambda x: (x[0], x[1]))
+        results.sort(key=lambda x: (x[0], x[1]))
         
                 
         counter = 0
@@ -391,6 +413,10 @@ set_theme.grid(row=4, column=0, padx=(0,80), pady=(5,50))
 
 scaling_optionemenu = customtkinter.CTkOptionMenu( root, values=["80%", "90%", "100%", "110%", "120%","130%"], command=change_scaling_event, dynamic_resizing=False)
 scaling_optionemenu.grid(row=5, column=0, padx=(0,80), pady=(0,70))
+
+
+report_button = customtkinter.CTkButton(root, text='⚠️ Report a problem', command=lambda:report_problem())
+report_button.grid(row=5, column=0, padx=(0,80), pady=(50,10))
 
 #search frame widgets
 
