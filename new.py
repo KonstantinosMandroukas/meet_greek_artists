@@ -1,6 +1,6 @@
 import customtkinter
 import tkinter as tk
-from PIL import Image, ImageTk, UnidentifiedImageError
+from PIL import Image, ImageTk, UnidentifiedImageError, ImageOps
 import os
 import requests
 from io import BytesIO
@@ -120,6 +120,11 @@ def request_artist():
     btn_ok = customtkinter.CTkButton(win, text='Send Request', command=lambda:Send_mail(action='request',window=win,name=name_entry.get(), category=choise))
     btn_ok.pack(pady=100)
     
+def fit_image(image_path, target_width, target_height):
+    with Image.open(image_path) as img:
+        # Contain resizes the image to fit inside the bounding box
+        resized_img = ImageOps.contain(img, (target_width, target_height))
+        return resized_img
  
 def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spotify links)
     Clear_tabs()
@@ -222,12 +227,17 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
                 img = Image.open(image_path)
 
             # Use actual widget sizes (fallback to sensible defaults if small)
-            width, height = tabs.winfo_width(), tabs.winfo_height()
-            if width < 50:
-                width = 600
-            if height < 50:
-                height = 400 
-
+            # width, height = tabs.winfo_width(), tabs.winfo_height()
+            # if width < 50:
+            #     width = 600
+            # if height < 50:
+            #     height = 400 
+        
+            width, height = img.width, img.height
+            if (width > tabs.winfo_width() and height > tabs.winfo_height()) or (width > tabs.winfo_width() or height > tabs.winfo_height()):
+                width  = width / 2
+                height = height / 2         
+                
             artist_image = customtkinter.CTkImage(light_image=img, dark_image=img, size=(width, height))
             image_res = customtkinter.CTkLabel(artist_photo, image=artist_image, text="")
             image_res.grid(row=0, column=0)

@@ -6,7 +6,7 @@ class Send_Email():
     def send(self):
         if self.action == 'request':
             self.subject = "Meet Greek Artists: New Artist Request"
-        else:
+        elif self.action == 'report':
             self.subject = "Meet Greek Artists: Report Problem"
         mail = mt.Mail(
         sender=mt.Address(email="konmanfts@demomailtrap.co", name="Mailtrap Test"),
