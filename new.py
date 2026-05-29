@@ -92,10 +92,10 @@ def report_problem():
     
     label = customtkinter.CTkLabel(master=win, text='Describe the problem in the field below:')
     label.pack()
-    entry = customtkinter.CTkEntry(master=win, placeholder_text='Enter problem here...')
+    entry = customtkinter.CTkTextbox(master=win,width=300, height=200)
     entry.pack()
     button = customtkinter.CTkButton(master=win, text='Send Problem', command=lambda:Send_mail(action='report', window=win, problem = entry.get()))
-    button.pack()    
+    button.pack(pady=50)    
     
 def request_artist():
     win = customtkinter.CTkToplevel()
