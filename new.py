@@ -188,16 +188,39 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
             youtube_text.grid(row=0, column=1)
             youtube = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website(results_str2), width=-1000, height=-1000, fg_color="#9c2f21", hover_color="#B54537", corner_radius=100, image=customtkinter.CTkImage(dark_image= Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/youtube.png"), light_image= Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/youtube.png"), size=(200, 200)))
             youtube.grid(row=1, column=1)
-
-        morecom_text = customtkinter.CTkLabel(artist_listen, text="More.com", font=("Arial", 20, "bold"))
-        morecom_text.grid(row=0, column=2)
-        morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/music/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
-        morecom.grid(row=1, column=2)
+        
+        sq = "SELECT more_link FROM artists_all WHERE first_name = %s AND last_name = %s"
+        val = [(bt_val)]
+        cursor.execute(sq, (first_name, last_name))
+        results = cursor.fetchall()
+        results_str3 = results[0][0] if results else None
+        if results_str3:
+            morecom_text = customtkinter.CTkLabel(artist_listen, text='More.com', font=('Arial', 20,'bold'))
+            morecom_text.grid(row=0, column=2)
+            morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website(results_str3), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
+            morecom.grid(row=1, column=2)
+        else:
+            morecom_text = customtkinter.CTkLabel(artist_listen, text="More.com", font=("Arial", 20, "bold"))
+            morecom_text.grid(row=0, column=2)
+            morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/music/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
+            morecom.grid(row=1, column=2)
+            
     else:
-        morecom_text = customtkinter.CTkLabel(artist_listen, text="For more information about plays that the artist\nmight be performing on visit more.com", font=("Arial", 20))
-        morecom_text.grid(row=0, column=1)
-        morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/theatre/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
-        morecom.grid(row=1, column=1)
+        sq = "SELECT more_link FROM artists_all WHERE first_name = %s AND last_name = %s"
+        val = [(bt_val)]
+        cursor.execute(sq, (first_name, last_name))
+        results = cursor.fetchall()
+        results_str3 = results[0][0] if results else None
+        if results_str3:
+            morecom_text = customtkinter.CTkLabel(artist_listen, text='More.com', font=('Arial', 20,'bold'))
+            morecom_text.grid(row=0, column=2)
+            morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website(results_str3), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
+            morecom.grid(row=1, column=2)
+        else:
+            morecom_text = customtkinter.CTkLabel(artist_listen, text="For more information about plays that the artist\nmight be performing on visit more.com", font=("Arial", 20))
+            morecom_text.grid(row=0, column=1)
+            morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/theatre/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
+            morecom.grid(row=1, column=1)
     '''display image'''
     # Get image link from database (handle single-name artists as well)
     if last_name:
