@@ -32,6 +32,10 @@ db_port = os.environ.get('DB_PORT')
 db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')
 db_name = os.environ.get('DB_NAME')
+cl_id = os.environ.get('CL_ID') 
+cl_secret = os.environ.get('CL_SECRET')
+uri = os.environ.get('URI')
+Scope = os.environ.get('SCOPE')
 
 mydb = psycopg.connect(
     host = db_host,
@@ -45,10 +49,10 @@ mydb = psycopg.connect(
 cursor = mydb.cursor()
 # 1. Connect to the Spotify API using your Developer Credentials
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id="531c3a0ead3d45f88c7d44e995ae0834",
-    client_secret="8288e854531045229078d1c8e737d8e1",
-    redirect_uri="http://127.0.0.1:8080",
-    scope="playlist-read-private" # This permission allows you to read playlists
+    client_id=cl_id,
+    client_secret=cl_secret,
+    redirect_uri=uri,
+    scope=Scope # This permission allows you to read playlists
 ))
 #old-host: db.tznssyoujmjylijfqevh.supabase.co
     
