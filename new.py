@@ -8,6 +8,8 @@ from CTkMessagebox import CTkMessagebox
 import psycopg
 from mail import Send_Email
 from dotenv import load_dotenv
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
@@ -24,15 +26,12 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 load_dotenv()
 
-'''Database connection'''
+'''connections'''
 db_host = os.environ.get('DB_HOST')
 db_port = os.environ.get('DB_PORT')
 db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')
 db_name = os.environ.get('DB_NAME')
-
-
-
 
 mydb = psycopg.connect(
     host = db_host,
@@ -44,9 +43,13 @@ mydb = psycopg.connect(
 ) 
 
 cursor = mydb.cursor()
-
-
-
+# 1. Connect to the Spotify API using your Developer Credentials
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+    client_id="531c3a0ead3d45f88c7d44e995ae0834",
+    client_secret="8288e854531045229078d1c8e737d8e1",
+    redirect_uri="http://127.0.0.1:8080",
+    scope="playlist-read-private" # This permission allows you to read playlists
+))
 #old-host: db.tznssyoujmjylijfqevh.supabase.co
     
 
@@ -142,6 +145,7 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
         first_name = parts[0]
         last_name = None
         
+    full_name = f"{first_name} {last_name}"
 
     '''display text'''
     if last_name:
@@ -204,6 +208,20 @@ def Get_infoAndDisplay(bt_val:str): #Displaying info (text / photo / yt or spoti
             morecom_text.grid(row=0, column=2)
             morecom = customtkinter.CTkButton(artist_listen, text=" ", command=lambda:open_website("https://www.more.com/el/tickets/music/"), width=-100, height=-100, fg_color="#C4E816", hover_color="#A2C10F", image=customtkinter.CTkImage(dark_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"),light_image = Image.open("C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/more.jpg"), size=(200,200)))
             morecom.grid(row=1, column=2)
+                
+        results = sp.search(q=full_name, limit=5, type='track')        
+        tracks_frame = customtkinter.CTkFrame(artist_listen, fg_color="transparent")
+        tracks_frame.grid(row=1, column=3, rowspan=2, padx=20, pady=10, sticky="nsew")
+        # 2. Grab a specific playlist using its ID
+        # playlist_id = 'https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M' # Spotify's Today's Top Hits
+        
+
+        label = customtkinter.CTkLabel(tracks_frame, text="Here are some of the artist's tracks:", font=('Arial', 20,'bold'))
+        label.grid(row=0, column=0, pady=(0, 10), sticky="w")
+        # 3. Loop through the tracks and print the name and artist
+        for i, track in enumerate(results['tracks']['items']):
+            label2 = customtkinter.CTkLabel(tracks_frame,text=f"🎵 {track['name']}")
+            label2.grid(row=i+1, column=0, pady=5, sticky="w")
             
     else:
         sq = "SELECT more_link FROM artists_all WHERE first_name = %s AND last_name = %s"
@@ -366,7 +384,7 @@ def Search(): #handles the searching
             btn = customtkinter.CTkButton(
                 option_frame,
                 text=full_name,
-                command=lambda: Get_infoAndDisplay(full_name)
+                command=lambda name=full_name: Get_infoAndDisplay(name)
             )
             btn.grid(row=1 + i, column=1, pady=5)
 
