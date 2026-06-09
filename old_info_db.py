@@ -6,3 +6,5 @@ mydb = mysql.connector.connect(
 	password = "admin1234",
     database = "meet_greek_artists"
 ) 
+
+#old-host: db.tznssyoujmjylijfqevh.supabase.co

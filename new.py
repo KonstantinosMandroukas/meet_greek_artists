@@ -54,7 +54,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     redirect_uri=uri,
     scope=Scope # This permission allows you to read playlists
 ))
-#old-host: db.tznssyoujmjylijfqevh.supabase.co
+
     
 
 '''app icon'''
