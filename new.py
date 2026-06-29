@@ -24,36 +24,6 @@ root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
-load_dotenv()
-
-'''connections'''
-db_host = os.environ.get('DB_HOST')
-db_port = os.environ.get('DB_PORT')
-db_user = os.environ.get('DB_USER')
-db_pass = os.environ.get('DB_PASS')
-db_name = os.environ.get('DB_NAME')
-cl_id = os.environ.get('CL_ID') 
-cl_secret = os.environ.get('CL_SECRET')
-uri = os.environ.get('URI')
-Scope = os.environ.get('SCOPE')
-
-mydb = psycopg.connect(
-    host = db_host,
-    user = db_user,
-    password = db_pass,
-    dbname = db_name,
-    port = db_port,
-    sslmode='require'
-) 
-
-cursor = mydb.cursor()
-# 1. Connect to the Spotify API using your Developer Credentials
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id=cl_id,
-    client_secret=cl_secret,
-    redirect_uri=uri,
-    scope=Scope # This permission allows you to read playlists
-))
 
     
 
@@ -80,12 +50,16 @@ def open_website(url): #To open websites/connected to buttons
     
 
 def Send_mail(action, window,**info):
-    if action == 'report':
-        txt_mail = Send_Email(f"Problem: {info['problem']}", action)
-    elif action == 'request':
-        txt_mail = Send_Email(f"name = {info['name']}\ncategory = {info['category']}", action)
-    txt_mail.send()
-    window.destroy() 
+    try:
+        if action == 'report':
+            txt_mail = Send_Email(f"Problem: {info['problem']}", action)
+        elif action == 'request':
+            txt_mail = Send_Email(f"name = {info['name']}\ncategory = {info['category']}", action)
+        txt_mail.send()
+        
+    except:
+        CTkMessagebox(title="Network Error", message="Couldn't send probem report - Please check your internet connection.")
+        window.destroy() 
     
     
 def report_problem():
@@ -101,7 +75,7 @@ def report_problem():
     label.pack()
     entry = customtkinter.CTkTextbox(master=win,width=300, height=200)
     entry.pack()
-    button = customtkinter.CTkButton(master=win, text='Send Problem', command=lambda:Send_mail(action='report', window=win, problem = entry.get()))
+    button = customtkinter.CTkButton(master=win, text='Send Problem', command=lambda:Send_mail(action='report', window=win, problem = entry.get("1.0", "end")))
     button.pack(pady=50)    
     
 def request_artist():
@@ -489,7 +463,6 @@ clear = customtkinter.CTkButton( search_frame, text="Clear", command=Clear)
 
 option_frame = customtkinter.CTkFrame(master = root, width=1000, height=50)
 option_frame.grid_rowconfigure(4, weight=1)
-
 #root widgets
 
 root_label = customtkinter.CTkLabel( root, text="Select an artist and learn more about them", font=("Arial", 20)) 
@@ -506,6 +479,50 @@ not_found_label.grid(row=0,column=0)
 
 no_img_found_label = customtkinter.CTkLabel(artist_photo,text='', font=('Arial',16)) #for when there is not an image for an artist
 no_img_found_label.grid(row=0,column=0)
+
+
+load_dotenv()
+
+'''connections'''
+db_host = os.environ.get('DB_HOST')
+db_port = os.environ.get('DB_PORT')
+db_user = os.environ.get('DB_USER')
+db_pass = os.environ.get('DB_PASS')
+db_name = os.environ.get('DB_NAME')
+cl_id = os.environ.get('CL_ID') 
+cl_secret = os.environ.get('CL_SECRET')
+uri = os.environ.get('URI')
+Scope = os.environ.get('SCOPE')
+
+
+try:
+    mydb = psycopg.connect(
+        host = db_host,
+        user = db_user,
+        password = db_pass,
+        dbname = db_name,
+        port = db_port,
+        sslmode='require'
+    ) 
+    cursor = mydb.cursor()
+except:
+    select_artist_category.configure(state='disabled')
+    search_button.configure(state='disabled')
+    CTkMessagebox(title="Error", message="There has been an error - Please check your connection and contact us ('Report Problem')")
+
+
+
+# 1. Connect to the Spotify API using your Developer Credentials
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+    client_id=cl_id,
+    client_secret=cl_secret,
+    redirect_uri=uri,
+    scope=Scope # This permission allows you to read playlists
+))
+
+
+
+
 
 
 
