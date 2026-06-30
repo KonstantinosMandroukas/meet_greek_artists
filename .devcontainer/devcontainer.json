@@ -1,0 +1,11 @@
+{
+    "name": "CustomTkinter App Workspace",
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "features": {
+        "ghcr.io/devcontainers/features/desktop-lite:1": {
+            "version": "latest"
+        }
+    },
+    "forwardPorts": [6080],
+    "postCreateCommand": "pip install -r requirements.txt"
+}
