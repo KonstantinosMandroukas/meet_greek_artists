@@ -25,7 +25,7 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 
-    
+new_scaling_float = 100
 
 '''app icon'''
 icon_path = "C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/logo.ico"
@@ -283,6 +283,7 @@ def Clear(): #clears the search bar
     search.delete(0, tk.END)
 
 def change_scaling_event(new_scaling: str):  #changes the scaling of the app
+    global new_scaling_float
     new_scaling_float = int(new_scaling.replace("%", "")) / 100
     customtkinter.set_widget_scaling(new_scaling_float)
     
@@ -430,6 +431,7 @@ home_button.grid(row=1,column=0, padx=(10,100), pady=(50,0))
 select_artist_category_values = ["Actors", "Singers"]
 select_artist_category = customtkinter.CTkComboBox( frame, values=select_artist_category_values, command=Select_artist_category)
 select_artist_category.grid(row=2, column=0, padx=(10,100), pady=(30,0))
+select_artist_category.set('Select')
 
 scrolable_frame = customtkinter.CTkScrollableFrame(frame, width=200, height=350)
 scrolable_frame.grid(row=3, column=0, padx=(20, 50), pady=(30, 0), sticky="s")
@@ -442,6 +444,7 @@ set_theme.grid(row=4, column=0, padx=(0,80), pady=(5,50))
 
 scaling_optionemenu = customtkinter.CTkOptionMenu( root, values=["80%", "90%", "100%", "110%", "120%","130%"], command=change_scaling_event, dynamic_resizing=False)
 scaling_optionemenu.grid(row=5, column=0, padx=(0,80), pady=(0,70))
+scaling_optionemenu.set(str(new_scaling_float)+'%')
 
 
 report_button = customtkinter.CTkButton(root, text='⚠️ Report a problem', command=lambda:report_problem())
@@ -484,11 +487,13 @@ no_img_found_label.grid(row=0,column=0)
 load_dotenv()
 
 '''connections'''
+#for database
 db_host = os.environ.get('DB_HOST')
 db_port = os.environ.get('DB_PORT')
 db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')
 db_name = os.environ.get('DB_NAME')
+#for spotify
 cl_id = os.environ.get('CL_ID') 
 cl_secret = os.environ.get('CL_SECRET')
 uri = os.environ.get('URI')
@@ -513,12 +518,15 @@ except:
 
 
 # 1. Connect to the Spotify API using your Developer Credentials
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id=cl_id,
-    client_secret=cl_secret,
-    redirect_uri=uri,
-    scope=Scope # This permission allows you to read playlists
-))
+try:
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+        client_id=cl_id,
+        client_secret=cl_secret,
+        redirect_uri=uri,
+        scope=Scope # This permission allows you to read playlists
+    ))
+except:
+    pass
 
 
 

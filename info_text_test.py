@@ -24,7 +24,7 @@ artist_listen = tabs.add("Listen/Plays")
 
 tabs.grid(row=0, column=1, padx=(20,0), pady=(50,40))
 
-text = customtkinter.CTkLabel(artist_text, text="Originally from Lefkada, Konstantinos Argiros was born in Athens, Greece, where he grew up with his family. He is one of three siblings (triplets). At the age of five,\nhe took his first steps in music, learning to play the piano. Later on, he learned to play the guitar and some other Greek musical instruments. He began to work professionally as a singer,\nappearing at 'FIX' nightclub in Thessaloniki. In the summer of 2008, he collaborated with record company Sony BMG and released an album. Between September 2011\nand May 2012, he appeared at 'VOX' alongside Greek singer Stella Kali. ", font=("Arial", 16))
+text = customtkinter.CTkLabel(artist_text, text="Giannis Bezos (born September 10, 1956, in Athens) is one of Greece's most famous and influential comedy actors, directors, and singers. \nHe became a beloved household name through iconic starring roles in legendary Greek sitcoms such as Oi Aparadektoi, Tis Ellados ta Paidia, Ekeines Ki Ego, Akros Oikogeneiakon, and Eftyhismenoi Mazi. Beyond his massive success on television, Bezos is a accomplished stage actor and director who regularly tackles classical theater, including ancient Greek comedies by Aristophanes and European works by playwrights like Molière. He is also known for his strong musical talents, having performed on stage and recorded music with prominent Greek composers like Thanos Mikroutsikos. In his personal life, he has been married to actress Natalia Tsaliki since 1987, and their daughter, Iro Bezou, is also an acclaimed actress.", font=("Arial", 16))
 text.grid(row=1, column=0)
 
 
