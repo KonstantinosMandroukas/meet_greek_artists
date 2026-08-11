@@ -16,7 +16,7 @@ from spotipy.oauth2 import SpotifyOAuth
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
-customtkinter.set_widget_scaling(150/100)           
+customtkinter.set_widget_scaling(100/100)           
 
 ''' app layout '''
 root = customtkinter.CTk()
@@ -30,7 +30,7 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 '''app icon'''
-icon_path = "C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/logo.ico"
+icon_path = "C:/Users/konma/Documents/meet_greek_artists/logo.ico"
 root.wm_iconbitmap(icon_path)
 
 '''Tab View'''
