@@ -11,9 +11,12 @@ from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+
+
 ''' app apearance'''
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
+customtkinter.set_widget_scaling(150/100)           
 
 ''' app layout '''
 root = customtkinter.CTk()
@@ -25,7 +28,6 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 
-new_scaling_float = 100
 
 '''app icon'''
 icon_path = "C:/Users/konma/Documents/vs code-programming/meet greek artists/artist_images/logo.ico"
@@ -283,7 +285,6 @@ def Clear(): #clears the search bar
     search.delete(0, tk.END)
 
 def change_scaling_event(new_scaling: str):  #changes the scaling of the app
-    global new_scaling_float
     new_scaling_float = int(new_scaling.replace("%", "")) / 100
     customtkinter.set_widget_scaling(new_scaling_float)
     
@@ -444,8 +445,7 @@ set_theme.grid(row=4, column=0, padx=(0,80), pady=(5,50))
 
 scaling_optionemenu = customtkinter.CTkOptionMenu( root, values=["80%", "90%", "100%", "110%", "120%","130%"], command=change_scaling_event, dynamic_resizing=False)
 scaling_optionemenu.grid(row=5, column=0, padx=(0,80), pady=(0,70))
-scaling_optionemenu.set(str(new_scaling_float)+'%')
-
+scaling_optionemenu.set('Select Scaling')
 
 report_button = customtkinter.CTkButton(root, text='⚠️ Report a problem', command=lambda:report_problem())
 report_button.grid(row=5, column=0, padx=(0,80), pady=(50,10))
