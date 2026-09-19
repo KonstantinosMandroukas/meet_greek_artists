@@ -562,10 +562,4 @@ try:
 except:
     pass
 
-
-
-
-
-
-
 root.mainloop()
