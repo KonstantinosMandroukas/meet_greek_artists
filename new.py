@@ -10,14 +10,21 @@ from mail import Send_Email
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-
-
+import json
+from time import sleep
 
 ''' app apearance'''
-customtkinter.set_appearance_mode("dark")
+if os.path.exists('preferences.json') and os.path.getsize('preferences.json') > 0:
+    with open('preferences.json', 'r') as file:
+        data = json.load(file)
+        prefered_theme = data.get('theme')
+        prefered_scale = data.get('scale')
+else:
+    prefered_theme = 'System'
+    prefered_scale = 1
+customtkinter.set_appearance_mode(prefered_theme)
+customtkinter.set_widget_scaling(prefered_scale)           
 customtkinter.set_default_color_theme("dark-blue")
-customtkinter.set_widget_scaling(100/100)           
-
 ''' app layout '''
 root = customtkinter.CTk()
 root.title("Meet greek artists")
@@ -25,7 +32,6 @@ root.geometry("1500x900")
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
-
 
 
 
@@ -40,6 +46,22 @@ artist_photo = tabs.add("Photos")
 artist_listen = tabs.add("Listen/Plays")
 
 '''funtions'''
+
+def save_preferences(preference,item):
+    if preference == 'scale':
+        preferences = {
+        "theme": (prefered_theme),
+        "scale": (item)
+    }
+    elif preference == 'theme':
+        preferences = {
+        "theme": (item),
+        "scale": (prefered_scale)
+    }
+
+    with open("preferences.json", "w") as file:
+        json.dump(preferences, file, indent=4)
+        
 
 def open_website(url): #To open websites/connected to buttons
     # Construct the appropriate command based on the operating system
@@ -58,6 +80,8 @@ def Send_mail(action, window,**info):
         elif action == 'request':
             txt_mail = Send_Email(f"name = {info['name']}\ncategory = {info['category']}", action)
         txt_mail.send()
+        sleep(0.5)
+        window.destroy()
         
     except:
         CTkMessagebox(title="Network Error", message="Couldn't send probem report - Please check your internet connection.")
@@ -285,8 +309,13 @@ def Clear(): #clears the search bar
     search.delete(0, tk.END)
 
 def change_scaling_event(new_scaling: str):  #changes the scaling of the app
+    global prefered_scale
     new_scaling_float = int(new_scaling.replace("%", "")) / 100
     customtkinter.set_widget_scaling(new_scaling_float)
+    # prefered_scale = new_scaling_float
+    prefered_scale = new_scaling_float
+    save_preferences('scale', new_scaling_float)
+    
     
 def Select_artist_category(choise): #depends on the users selection. It connects to the database and gets the actors or the singers.
     name_label.configure(text='')
@@ -405,7 +434,11 @@ def Search(): #handles the searching
             
      
 def Set_Themes(choise): #changes the theme of the app
+    global prefered_theme
     customtkinter.set_appearance_mode(choise)
+    prefered_theme = choise
+    save_preferences('theme', prefered_theme)
+
 
 def Home_button():
     Clear()#Resets everything to its first appearance
@@ -442,10 +475,11 @@ scrolable_frame.grid_columnconfigure(0, weight=1)
 set_theme_values = ["Light", "Dark", "System"]
 set_theme = customtkinter.CTkComboBox( root, values=set_theme_values , command=Set_Themes)
 set_theme.grid(row=4, column=0, padx=(0,80), pady=(5,50))
+set_theme.set(prefered_theme)
 
 scaling_optionemenu = customtkinter.CTkOptionMenu( root, values=["80%", "90%", "100%", "110%", "120%","130%"], command=change_scaling_event, dynamic_resizing=False)
 scaling_optionemenu.grid(row=5, column=0, padx=(0,80), pady=(0,70))
-scaling_optionemenu.set('Select Scaling')
+scaling_optionemenu.set((int(prefered_scale*100),'%'))
 
 report_button = customtkinter.CTkButton(root, text='⚠️ Report a problem', command=lambda:report_problem())
 report_button.grid(row=5, column=0, padx=(0,80), pady=(50,10))

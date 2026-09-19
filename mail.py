@@ -9,7 +9,7 @@ class Send_Email():
         elif self.action == 'report':
             self.subject = "Meet Greek Artists: Report Problem"
         mail = mt.Mail(
-        sender=mt.Address(email="konmanfts@demomailtrap.co", name="Mailtrap Test"),
+        sender=mt.Address(email="konmanfts@demomailtrap.co", name="Meet Greek Artists App"),
         to=[mt.Address(email="konmanfts@gmail.com")],
         subject=self.subject,
         text=f"{self.content}",
