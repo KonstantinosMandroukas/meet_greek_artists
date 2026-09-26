@@ -84,8 +84,9 @@ def Send_mail(action, window,**info):
         window.destroy()
         
     except:
-        CTkMessagebox(title="Network Error", message="Couldn't send probem report - Please check your internet connection.")
         window.destroy() 
+        CTkMessagebox(title="Network Error", message="Couldn't send probem report - Please check your internet connection.")
+        
     
     
 def report_problem():
