@@ -7,11 +7,12 @@ from io import BytesIO
 from CTkMessagebox import CTkMessagebox
 import psycopg
 from mail import Send_Email
-from dotenv import load_dotenv
+from dotenv import load_dotenv  #for env variables
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import json
 from time import sleep
+import tempfile
 
 ''' app apearance'''
 if os.path.exists('preferences.json') and os.path.getsize('preferences.json') > 0:
@@ -36,8 +37,17 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 '''app icon'''
-icon_path = "C:/Users/konma/Documents/meet_greek_artists/logo.ico"
-root.wm_iconbitmap(icon_path)
+icon_path = "https://raw.githubusercontent.com/KonstantinosMandroukas/meet_greek_artist_pics/main/logo.ico"
+if icon_path.lower().startswith(("http://", "https://")):
+    response = requests.get(icon_path, timeout=5)
+    response.raise_for_status()
+    # Save the icon to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".ico") as tmp_icon:
+        tmp_icon.write(response.content)
+        tmp_icon_path = tmp_icon.name
+    root.wm_iconbitmap(tmp_icon_path)
+else:
+    root.wm_iconbitmap(icon_path)
 
 '''Tab View'''
 tabs = customtkinter.CTkTabview(root, width=1100, height=750)
